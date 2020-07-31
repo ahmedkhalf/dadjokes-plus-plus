@@ -3,7 +3,8 @@ __version__ = "1.0.0"
 import requests
 
 
-USER_AGENT = f"dadjokes-plus-plus/v{__version__} (https://github.com/ahmedkhalf/dadjokes-plus-plus)"
+URL = "https://github.com/ahmedkhalf/dadjokes-plus-plus"
+USER_AGENT = f"dadjokes-plus-plus/v{__version__} ({URL})"
 HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
 
