@@ -11,4 +11,3 @@ def joke():
     """Fetches a random dad joke."""
     r = requests.get("https://icanhazdadjoke.com/", headers=HEADERS)
     return r.json()["joke"]
-
