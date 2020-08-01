@@ -55,7 +55,7 @@ def main():
     elif args.lpath is not None:
         print(dadjokes.joke(file=args.lpath), end="")
     else:
-        print(dadjokes.joke(), end="")
+        print(dadjokes.joke())
 
 
 if __name__ == "__main__":
