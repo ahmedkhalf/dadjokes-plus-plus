@@ -49,10 +49,10 @@ def main():
 
     if args.egg:
         egg()
-    elif args.dpath != None:
+    elif args.dpath is not None:
         dadjokes.save_jokes(args.dpath)
         return
-    elif args.lpath != None:
+    elif args.lpath is not None:
         print(dadjokes.joke(file=args.lpath))
     else:
         print(dadjokes.joke())

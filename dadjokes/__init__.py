@@ -38,7 +38,7 @@ def save_jokes(path):
         first = True
         page = 1
         pages = None
-        while pages == None or page <= pages:
+        while pages is None or page <= pages:
             r = _request(search=True, query=[["page", page], ["limit", 30]])
             result = r.json()
 
