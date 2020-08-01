@@ -49,9 +49,13 @@ def main():
 
     if args.egg:
         egg()
+    elif args.dpath != None:
+        dadjokes.save_jokes(args.dpath)
         return
-
-    print(dadjokes.joke())
+    elif args.lpath != None:
+        print(dadjokes.joke(file=args.lpath))
+    else:
+        print(dadjokes.joke())
 
 
 if __name__ == "__main__":
