@@ -1,6 +1,9 @@
 __version__ = "1.0.0"
 
 import requests
+import os.path
+import time
+import random
 
 
 URL = "https://github.com/ahmedkhalf/dadjokes-plus-plus"
@@ -8,7 +11,67 @@ USER_AGENT = f"dadjokes-plus-plus/v{__version__} ({URL})"
 HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
 
-def joke():
+def _build_query(url, query):
+    if len(query) > 0:
+        url += "?"
+        for term in query[:-1]:
+            url += term[0] + "=" + str(term[1]) + "&"
+        url += query[-1][0] + "=" + str(query[-1][1])
+    return url
+
+
+def _request(query=[], search=False):
+    if search:
+        url = "https://icanhazdadjoke.com/search"
+        url = _build_query(url, query)
+        return requests.get(url, headers=HEADERS)
+    return requests.get("https://icanhazdadjoke.com/", headers=HEADERS)
+
+
+def save_jokes(path):
+    if os.path.exists(path):
+        print("File exists at: ", path)
+        prompt = input("Would you like to overwrite the file [Yn]? ")
+        if prompt.lower() == "n":
+            return False
+    with open(path, "w") as f:
+        first = True
+        page = 1
+        pages = None
+        while pages == None or page <= pages:
+            r = _request(search=True, query=[["page", page], ["limit", 30]])
+            result = r.json()
+
+            if first:
+                first = False
+                pages = int(result["total_pages"])
+
+            for leaf in result["results"]:
+                joke = str(leaf["joke"])
+                joke = joke.splitlines()
+                joke = list(filter(bool, joke))
+                f.write("_NEWLINECHAR_".join(joke) + "\n")
+
+            page += 1
+            # Wait at least one second between requests
+            time.sleep(1)
+            print(f"[{page}/{pages}]", end="\r", flush=True)
+
+
+def _random_line(afile):
+    line = next(afile)
+    for num, aline in enumerate(afile, 2):
+        if random.randrange(num):
+            continue
+        line = aline
+    return line
+
+
+def joke(file=None):
     """Fetches a random dad joke."""
-    r = requests.get("https://icanhazdadjoke.com/", headers=HEADERS)
-    return r.json()["joke"]
+    if file is not None:
+        with open(file, "r") as f:
+            return _random_line(f).replace("_NEWLINECHAR_", "\n")
+    else:
+        r = _request()
+        return r.json()["joke"]
