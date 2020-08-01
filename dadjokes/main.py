@@ -19,7 +19,31 @@ def egg():
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        prog="dadjokes", description=f"dadjokes CLI v{dadjokes.__version__}"
+    )
+    parser.add_argument(
+        "-l",
+        "--load",
+        dest="lpath",
+        metavar="PATH",
+        nargs="?",
+        type=str,
+        const="jokes.txt",
+        default=None,
+        help="load all jokes from a file (faster and offline)",
+    )
+    parser.add_argument(
+        "-d",
+        "--download",
+        dest="dpath",
+        metavar="PATH",
+        nargs="?",
+        type=str,
+        const="jokes.txt",
+        default=None,
+        help="download all jokes to a file (faster and offline)",
+    )
     parser.add_argument("--egg", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
 
