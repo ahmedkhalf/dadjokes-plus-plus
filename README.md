@@ -41,7 +41,7 @@ Fetch jokes from icanhazdadjoke. Unlike other alternatives, dadjokes++ can downl
 
 ## Installation
 
-Make sure you have python and pip installed, then execute this in your terminal:
+Make sure you have python 3 and pip installed, then execute this in your terminal:
 
 ```bash
 pip install dadjokes-plus-plus
