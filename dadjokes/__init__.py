@@ -54,14 +54,14 @@ def _random_line(afile):
         if random.randrange(num):
             continue
         line = aline
-    return line
+    return line.replace("_NEWLINECHAR_", "\n")
 
 
 def joke(file=None):
     """Fetches a random dad joke."""
     if file is not None:
         with open(file, "r") as f:
-            return _random_line(f).replace("_NEWLINECHAR_", "\n")
+            return _random_line(f)
     else:
         r = _request()
         return r.json()["joke"]
