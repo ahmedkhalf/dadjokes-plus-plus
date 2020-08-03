@@ -24,7 +24,7 @@ def save_jokes(path):
         prompt = input("Would you like to overwrite the file [Yn]? ")
         if prompt.lower() == "n":
             return False
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         first = True
         page = 1
         pages = None
@@ -42,10 +42,10 @@ def save_jokes(path):
                 joke = list(filter(bool, joke))
                 f.write("_NEWLINECHAR_".join(joke) + "\n")
 
+            print(f"[{page}/{pages}]", end="\r", flush=True)
             page += 1
             # Wait at least one second between requests
             time.sleep(1)
-            print(f"[{page}/{pages}]", end="\r", flush=True)
 
 
 def _random_line(afile):
@@ -60,7 +60,7 @@ def _random_line(afile):
 def joke(file=None):
     """Fetches a random dad joke."""
     if file is not None:
-        with open(file, "r") as f:
+        with open(file, "r", encoding="utf-8") as f:
             return _random_line(f)
     else:
         r = _request()
