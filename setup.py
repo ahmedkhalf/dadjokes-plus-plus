@@ -38,7 +38,7 @@ setup(
     author="Ahmed Khalf",
     author_email="ahmedkhalf567@gmail.com",
     url="https://github.com/ahmedkhalf/dadjokes-plus-plus",
-    download_url="https://github.com/ahmedkhalf/dadjokes-plus-plus/archive/1.0.tar.gz",
+    download_url="https://github.com/ahmedkhalf/dadjokes-plus-plus/archive/1.1.tar.gz",
     keywords=[
         "icanhazdadjoke",
         "dadjokes",

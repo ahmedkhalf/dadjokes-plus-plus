@@ -11,20 +11,10 @@ USER_AGENT = f"dadjokes-plus-plus/v{__version__} ({URL})"
 HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/json"}
 
 
-def _build_query(url, query):
-    if len(query) > 0:
-        url += "?"
-        for term in query[:-1]:
-            url += term[0] + "=" + str(term[1]) + "&"
-        url += query[-1][0] + "=" + str(query[-1][1])
-    return url
-
-
-def _request(query=[], search=False):
+def _request(query={}, search=False):
     if search:
         url = "https://icanhazdadjoke.com/search"
-        url = _build_query(url, query)
-        return requests.get(url, headers=HEADERS)
+        return requests.get(url, params=query, headers=HEADERS)
     return requests.get("https://icanhazdadjoke.com/", headers=HEADERS)
 
 
@@ -39,7 +29,7 @@ def save_jokes(path):
         page = 1
         pages = None
         while pages is None or page <= pages:
-            r = _request(search=True, query=[["page", page], ["limit", 30]])
+            r = _request(search=True, query={"page": str(page), "limit": "30"})
             result = r.json()
 
             if first:
